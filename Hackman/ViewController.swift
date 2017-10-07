@@ -47,9 +47,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         
-        for i in -10..<10 {
-            for j in -10..<10{
-                addBox(xaxis: Float(i), yaxis: Float(j))
+        for i in -20..<20 {
+            for j in -20..<20{
+                
+                if i % 2 == 0 && j % 2 == 0 {
+                    
+                    addBox(xaxis: Float(i), yaxis: Float(j))
+                }
             }
         }
         
