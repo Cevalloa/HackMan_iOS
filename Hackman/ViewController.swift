@@ -16,6 +16,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var counterLabel: UILabel!
     @IBOutlet weak var highScoreLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var ghostSpeedSlider: UISlider!
+    @IBOutlet weak var ghostSpeedLabel: UILabel!
     
     @IBOutlet weak var gameOverImage: UIImageView!
     var pacMan = SCNNode()
@@ -91,7 +93,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         badGuy.name = "Khrushchev"
         self.sceneView.scene.rootNode.addChildNode(badGuy)
         
-        sceneView.debugOptions = [.showCameras, ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        //sceneView.debugOptions = [.showCameras, ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
         
         MusicHelper.shared.playBackgroundMusic()
     }
@@ -111,7 +113,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         node.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
         node.name = "box"
         
-        node.position = SCNVector3(xaxis,-1,yaxis)
+        node.position = SCNVector3(xaxis,-0.15,yaxis)
         self.sceneView.scene.rootNode.addChildNode(node)
     }
     
@@ -143,9 +145,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func updateKruschevPosition() {
         badGuy.removeAllActions()
         if let camera = sceneView.pointOfView {
-            let moveToTarget = SCNAction.move(to: SCNVector3(camera.position.x, camera.position.y, camera.position.z), duration: 7)
+            let moveToTarget = SCNAction.move(to: SCNVector3(camera.position.x, camera.position.y, camera.position.z), duration: getKruschevSpeed())
             badGuy.runAction(moveToTarget)
         }
+    }
+    
+    func getKruschevSpeed() -> Double {
+        let initalValue = ghostSpeedSlider.value
+        return (Double(10 - initalValue))
     }
     
     func checkCollisions() {
@@ -200,6 +207,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         self.gameOverImage.isHidden = false
         self.startButton.isHidden = false
+        self.ghostSpeedSlider.isHidden = false
+        self.ghostSpeedLabel.isHidden = false
     }
     
     func updateHighScoreLabel() {
@@ -286,6 +295,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.startButton.isHidden = true
         self.gameOverImage.isHidden = true
         self.counterLabel.isHidden = false
+        self.ghostSpeedSlider.isHidden = true
+        self.ghostSpeedLabel.isHidden = true
         
         badGuyMovementTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: { (timer) in
             self.updateKruschevPosition()

@@ -48,6 +48,18 @@
                                 <rect key="frame" x="59" y="118" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="Mdg-IW-Uo5">
+                                <rect key="frame" x="17" y="472" width="340" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Speed Of Ghost" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcI-Rp-3fU">
+                                <rect key="frame" x="68" y="426" width="239" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -59,6 +71,8 @@
                     <connections>
                         <outlet property="counterLabel" destination="lyi-05-6tT" id="ahU-W3-QOa"/>
                         <outlet property="gameOverImage" destination="PPJ-aH-PsK" id="9JU-55-EPB"/>
+                        <outlet property="ghostSpeedLabel" destination="CcI-Rp-3fU" id="ysn-Vs-ZOW"/>
+                        <outlet property="ghostSpeedSlider" destination="Mdg-IW-Uo5" id="hte-YD-t1z"/>
                         <outlet property="highScoreLabel" destination="dzc-rp-J7h" id="7oa-es-csH"/>
                         <outlet property="sceneView" destination="53E-m2-OMQ" id="sju-Ah-bXA"/>
                         <outlet property="startButton" destination="kGH-TH-Is7" id="fcl-DN-yB1"/>
