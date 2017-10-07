@@ -19,6 +19,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     var pacMan = SCNNode()
     var badGuy = SCNNode()
+    var badGuyMovementTimer = Timer()
     
     var counter: Int = 0 {
         didSet {
@@ -135,6 +136,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         let moveToTarget = SCNAction.move(to: SCNVector3(xAxis, yAxis - 1, zAxis), duration: 0.01)
         pacMan.runAction(moveToTarget)
+    }
+    
+    func updateKruschevPosition() {
+        badGuy.removeAllActions()
+        if let camera = sceneView.pointOfView {
+            let moveToTarget = SCNAction.move(to: SCNVector3(camera.position.x, camera.position.y, camera.position.z), duration: 10)
+            badGuy.runAction(moveToTarget)
+        }
     }
     
     func checkCollisions() {
@@ -254,6 +263,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         startGame()
         self.startButton.isHidden = true
         self.counterLabel.isHidden = false
+        
+//        badGuyMovementTimer = Timer(fire: Date(), interval: 2, repeats: true, block: { (timer) in
+//            self.updateKruschevPosition()
+//        })
+        badGuyMovementTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: { (timer) in
+            self.updateKruschevPosition()
+        })
+        
+        badGuyMovementTimer.fire()
     }
     
     // MARK: Helper Methods
