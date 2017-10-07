@@ -13,6 +13,8 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
+    // Create a session configuration
+    let configuration = ARWorldTrackingConfiguration()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,29 +25,83 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         
-        // Create a new scene
-//        let scene = SCNScene(named: "art.scnassets/Ball.scn")!
+        super.viewDidLoad()
         
-        let scene = SCNScene()
-        // Set the scene to the view
-        sceneView.scene = scene
+        // Set the view's delegate
+        sceneView.delegate = self
+        
+        // Show statistics such as fps and timing information
+        sceneView.showsStatistics = true
+        
+        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        
+        //        let node = SCNNode()
+        //        node.geometry = SCNBox(width:0.1, height: 0.1, length:0.1, chamferRadius:0)
+        //        //node.geometry?.firstMaterial?.specular.contents = UIColor.white
+        //        node.geometry?.firstMaterial?.diffuse.contents = UIColor.orange
+        //
+        //        node.position = SCNVector3(0,0,0.03)
+        //        self.sceneView.scene.rootNode.addChildNode(node)
+        for i in -10..<10 {
+            for j in -10..<10{
+                addBox(xaxis: Float(i), yaxis: Float(j))
+            }
+            
+        }
         sceneView.debugOptions = [.showBoundingBoxes, .showCameras]
     }
+    func resetSession(){
+        self.sceneView.session.pause()
+        self.sceneView.scene.rootNode.enumerateChildNodes{(node, _) in
+            node.removeFromParentNode()
+        }
+        self.sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
+    
+    func addBox(xaxis:Float, yaxis:Float){
+        let node = SCNNode()
+        node.geometry = SCNBox(width:0.1, height: 0.1, length:0.1, chamferRadius:0)
+        node.geometry?.firstMaterial?.specular.contents = UIColor.orange
+        node.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+        
+        //let x = randomNumbers(firstNum: -0.3, secondNum: 0.3)
+        //let y = randomNumbers(firstNum: -0.3, secondNum: 0.3)
+        //let z = randomNumbers(firstNum: -0.3, secondNum: 0.3)
+        //node.position = SCNVector3(x,y,z)
+        
+        node.position = SCNVector3(xaxis,-1,yaxis)
+        self.sceneView.scene.rootNode.addChildNode(node)
+    }
+    
+    func addSphere(){
+        let node = SCNNode()
+        node.geometry = SCNSphere(radius:0.1)
+        node.geometry?.firstMaterial?.specular.contents = UIColor.orange
+        node.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+        
+        //let x = randomNumbers(firstNum: -0.3, secondNum: 0.3)
+        //let y = randomNumbers(firstNum: -0.3, secondNum: 0.3)
+        //let z = randomNumbers(firstNum: -0.3, secondNum: 0.3)
+        //node.position = SCNVector3(x,y,z)
+        
+        node.position = SCNVector3(0,0,-1)
+        self.sceneView.scene.rootNode.addChildNode(node)
+    }
+    
+    func randomNumbers(firstNum: CGFloat, secondNum: CGFloat)-> CGFloat{
+        return CGFloat(arc4random())/CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
-
+        
         // Run the view's session
         sceneView.session.run(configuration)
-        
-        for _ in 0..<5 {
-            addObject()
-            addObject()
-            addObject()
-        }
+        self.sceneView.autoenablesDefaultLighting = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -58,19 +114,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
-    }
-    
-    func addObject() {
-        
-        let ball = Ball()
-        ball.loadModal()
-        
-        // Gives values between -1.5 and 1.5
-        let xPosition = randomPosition(lowerBound: -1.5, upperBound: 1.5)
-        let yPosition = randomPosition(lowerBound: -1.5, upperBound: 1.5)
-        
-        ball.position = SCNVector3(xPosition, yPosition, -3) // -1 is one meter away from the camera
-        sceneView.scene.rootNode.addChildNode(ball)
     }
 
     // MARK: - ARSCNViewDelegate
