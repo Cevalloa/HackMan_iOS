@@ -15,6 +15,8 @@
 		6C5271151F8888E100C055C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C5271131F8888E100C055C3 /* LaunchScreen.storyboard */; };
 		6C52711F1F888D5000C055C3 /* Ball.scn in Resources */ = {isa = PBXBuildFile; fileRef = 6C52711E1F888D5000C055C3 /* Ball.scn */; };
 		6C5271211F88904900C055C3 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5271201F88904900C055C3 /* Ball.swift */; };
+		B0CA031F1F8968EE0046CBDA /* MusicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA031E1F8968EE0046CBDA /* MusicHelper.swift */; };
+		B0CA03231F896E5B0046CBDA /* pacmanTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B0CA03221F896E4C0046CBDA /* pacmanTheme.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		6C5271161F8888E100C055C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C52711E1F888D5000C055C3 /* Ball.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Ball.scn; path = art.scnassets/Ball.scn; sourceTree = "<group>"; };
 		6C5271201F88904900C055C3 /* Ball.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
+		B0CA031E1F8968EE0046CBDA /* MusicHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicHelper.swift; sourceTree = "<group>"; };
+		B0CA03221F896E4C0046CBDA /* pacmanTheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pacmanTheme.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,8 @@
 				6C5271161F8888E100C055C3 /* Info.plist */,
 				6C52711E1F888D5000C055C3 /* Ball.scn */,
 				6C5271201F88904900C055C3 /* Ball.swift */,
+				B0CA031E1F8968EE0046CBDA /* MusicHelper.swift */,
+				B0CA03221F896E4C0046CBDA /* pacmanTheme.mp3 */,
 			);
 			path = Hackman;
 			sourceTree = "<group>";
@@ -106,6 +112,11 @@
 					6C5271041F8888E100C055C3 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -132,6 +143,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0CA03231F896E5B0046CBDA /* pacmanTheme.mp3 in Resources */,
 				6C52710B1F8888E100C055C3 /* art.scnassets in Resources */,
 				6C52711F1F888D5000C055C3 /* Ball.scn in Resources */,
 				6C5271151F8888E100C055C3 /* LaunchScreen.storyboard in Resources */,
@@ -148,6 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C5271211F88904900C055C3 /* Ball.swift in Sources */,
+				B0CA031F1F8968EE0046CBDA /* MusicHelper.swift in Sources */,
 				6C52710D1F8888E100C055C3 /* ViewController.swift in Sources */,
 				6C5271091F8888E100C055C3 /* AppDelegate.swift in Sources */,
 			);
@@ -287,10 +300,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4AJ74B7963;
+				DEVELOPMENT_TEAM = 27G44NF7K6;
 				INFOPLIST_FILE = Hackman/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AlexCevallos.Hackman;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AlexCevallos.Hackman2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -302,10 +315,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4AJ74B7963;
+				DEVELOPMENT_TEAM = 27G44NF7K6;
 				INFOPLIST_FILE = Hackman/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AlexCevallos.Hackman;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AlexCevallos.Hackman2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
