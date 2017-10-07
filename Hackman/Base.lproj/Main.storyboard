@@ -37,14 +37,26 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGH-TH-Is7">
+                                <rect key="frame" x="-37.5" y="248" width="450" height="170"/>
+                                <state key="normal" backgroundImage="startButton.png"/>
+                                <connections>
+                                    <action selector="startButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="dAd-4F-s2G"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kGH-TH-Is7" firstAttribute="centerX" secondItem="WcR-ZR-dbK" secondAttribute="centerX" id="Ay7-c4-0mv"/>
+                            <constraint firstItem="kGH-TH-Is7" firstAttribute="centerY" secondItem="WcR-ZR-dbK" secondAttribute="centerY" id="QlI-f9-kZ0"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="j28-7q-Axs"/>
                     </view>
                     <connections>
                         <outlet property="counterLabel" destination="lyi-05-6tT" id="ahU-W3-QOa"/>
                         <outlet property="highScoreLabel" destination="dzc-rp-J7h" id="7oa-es-csH"/>
                         <outlet property="sceneView" destination="53E-m2-OMQ" id="sju-Ah-bXA"/>
+                        <outlet property="startButton" destination="kGH-TH-Is7" id="fcl-DN-yB1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -52,4 +64,7 @@
             <point key="canvasLocation" x="136.80000000000001" y="132.68365817091455"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="startButton.png" width="450" height="170"/>
+    </resources>
 </document>

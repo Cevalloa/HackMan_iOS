@@ -15,6 +15,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var counterLabel: UILabel!
     @IBOutlet weak var highScoreLabel: UILabel!
+    @IBOutlet weak var startButton: UIButton!
     
     var pacmanHitBox = SCNNode()
     
@@ -56,13 +57,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         updateHighScoreLabel()
         
+        
+    }
+    func startGame() {
+        
+        
         for i in -10..<10 {
             for j in -10..<10{
                 
                 if i % 2 == 0 && j % 2 == 0 {
                     
                     addBox(xaxis: Float(i), yaxis: Float(j))
-//                    addIronCurtain(xaxis: Float(i + 1), yaxis: Float(j - 6))
+                    //                    addIronCurtain(xaxis: Float(i + 1), yaxis: Float(j - 6))
                 }
             }
         }
@@ -77,6 +83,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         MusicHelper.shared.playBackgroundMusic()
     }
+    
     func resetSession(){
         self.sceneView.session.pause()
         self.sceneView.scene.rootNode.enumerateChildNodes{(node, _) in
@@ -230,6 +237,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         return node
     }
 */
+    
+    @IBAction func startButtonPressed(_ sender: Any) {
+        startGame()
+        self.startButton.isHidden = true
+    }
     
     // MARK: Helper Methods
     func randomPosition(lowerBound lower:Float, upperBound upper:Float) -> Float {

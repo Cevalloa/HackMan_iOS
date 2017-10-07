@@ -15,6 +15,7 @@
 		6C5271151F8888E100C055C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C5271131F8888E100C055C3 /* LaunchScreen.storyboard */; };
 		6C52711F1F888D5000C055C3 /* Ball.scn in Resources */ = {isa = PBXBuildFile; fileRef = 6C52711E1F888D5000C055C3 /* Ball.scn */; };
 		6C5271211F88904900C055C3 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5271201F88904900C055C3 /* Ball.swift */; };
+		6C864F401F897E8E00EAE2F0 /* startButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C864F3F1F897E0500EAE2F0 /* startButton.png */; };
 		B0CA031F1F8968EE0046CBDA /* MusicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA031E1F8968EE0046CBDA /* MusicHelper.swift */; };
 		B0CA03231F896E5B0046CBDA /* pacmanTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B0CA03221F896E4C0046CBDA /* pacmanTheme.mp3 */; };
 		B0CA03261F8970550046CBDA /* pacmanEating.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B0CA03251F8970050046CBDA /* pacmanEating.m4a */; };
@@ -31,6 +32,7 @@
 		6C5271161F8888E100C055C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C52711E1F888D5000C055C3 /* Ball.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Ball.scn; path = art.scnassets/Ball.scn; sourceTree = "<group>"; };
 		6C5271201F88904900C055C3 /* Ball.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
+		6C864F3F1F897E0500EAE2F0 /* startButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startButton.png; sourceTree = "<group>"; };
 		B0CA031E1F8968EE0046CBDA /* MusicHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicHelper.swift; sourceTree = "<group>"; };
 		B0CA03221F896E4C0046CBDA /* pacmanTheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pacmanTheme.mp3; sourceTree = "<group>"; };
 		B0CA03251F8970050046CBDA /* pacmanEating.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = pacmanEating.m4a; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 		6C5271071F8888E100C055C3 /* Hackman */ = {
 			isa = PBXGroup;
 			children = (
+				6C864F3F1F897E0500EAE2F0 /* startButton.png */,
 				6C5271081F8888E100C055C3 /* AppDelegate.swift */,
 				6C52710A1F8888E100C055C3 /* art.scnassets */,
 				6C52710C1F8888E100C055C3 /* ViewController.swift */,
@@ -150,6 +153,7 @@
 				B0CA03231F896E5B0046CBDA /* pacmanTheme.mp3 in Resources */,
 				6C52710B1F8888E100C055C3 /* art.scnassets in Resources */,
 				6C52711F1F888D5000C055C3 /* Ball.scn in Resources */,
+				6C864F401F897E8E00EAE2F0 /* startButton.png in Resources */,
 				6C5271151F8888E100C055C3 /* LaunchScreen.storyboard in Resources */,
 				6C5271121F8888E100C055C3 /* Assets.xcassets in Resources */,
 				6C5271101F8888E100C055C3 /* Main.storyboard in Resources */,
