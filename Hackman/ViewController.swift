@@ -188,6 +188,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func runGameOverScreen() {
+        
+        let whiteView = UIView(frame: self.view.frame)
+        whiteView.backgroundColor = UIColor.white
+        self.view.addSubview(whiteView)
+        self.view.bringSubview(toFront: whiteView)
+
+        Timer.scheduledTimer(withTimeInterval: 0.35, repeats: false, block: { (timer) in
+            whiteView.removeFromSuperview()
+        })
+        
         self.gameOverImage.isHidden = false
         self.startButton.isHidden = false
     }
