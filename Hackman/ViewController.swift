@@ -87,14 +87,22 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         if let camera = sceneView.pointOfView {
             for node in nodes {
                 if (node != camera) {
-                    if (node.position.z == camera.position.z) {
-                        //node.removeFromParentNode()
+                    if (isCollision(firstNode: node, secondNode: camera)) {
                         node.geometry?.firstMaterial?.specular.contents = UIColor.orange
                         node.geometry?.firstMaterial?.diffuse.contents = UIColor.green
                     }
                 }
             }
         }
+    }
+    
+    func isCollision(firstNode: SCNNode, secondNode: SCNNode) -> Bool {
+        if firstNode.position.x - secondNode.position.x > -1 && firstNode.position.x - secondNode.position.x < 1 {
+            if firstNode.position.z - secondNode.position.z > -1 && firstNode.position.z - secondNode.position.z < 1 {
+                return true
+            }
+        }
+        return false
     }
     
     func randomNumbers(firstNum: CGFloat, secondNum: CGFloat)-> CGFloat{
