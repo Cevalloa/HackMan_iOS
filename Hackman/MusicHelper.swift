@@ -10,16 +10,28 @@ import AVFoundation
 
 class MusicHelper {
     static let shared = MusicHelper()
-    var audioPlayer: AVAudioPlayer?
+    var backgroundPlayer: AVAudioPlayer?
+    var noisePlayer: AVAudioPlayer?
     
     func playBackgroundMusic() {
-        //let soundTrack = NSURL(fileURLWithPath: Bundle.main.path(forResource: "pacmanSoundtrack", ofType: "m4a")!)
         do {
             let audioPath = Bundle.main.path(forResource: "pacmanTheme", ofType: "mp3")
-            audioPlayer = try AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
-            audioPlayer!.numberOfLoops = -1
-            audioPlayer!.prepareToPlay()
-            audioPlayer!.play()
+            backgroundPlayer = try AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
+            backgroundPlayer!.numberOfLoops = -1
+            backgroundPlayer!.prepareToPlay()
+            backgroundPlayer!.play()
+        } catch {
+            print("Cannot play the file")
+        }
+    }
+    
+    func playEatingNoise() {
+        do {
+            let audioPath = Bundle.main.path(forResource: "pacmanEating", ofType: "m4a")
+            noisePlayer = try AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
+            noisePlayer!.numberOfLoops = 1
+            noisePlayer!.prepareToPlay()
+            noisePlayer!.play()
         } catch {
             print("Cannot play the file")
         }
