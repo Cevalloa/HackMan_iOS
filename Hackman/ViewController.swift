@@ -20,7 +20,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     var counter: Int = 0 {
         didSet {
-            
+            MusicHelper.shared.playEatingNoise()
             DispatchQueue.main.async {
                 
                 self.counterLabel.text = "Score:\(self.counter)"
@@ -58,11 +58,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         for i in -20..<20 {
             for j in -20..<20{
-                
-                if i % 3 == 0 && j % 2 == 0 {
-                    
+                if i % 2 == 0 && j % 2 == 0 {
                     addBox(xaxis: Float(i), yaxis: Float(j))
-//                    addIronCurtain(xaxis: Float(i + 1), yaxis: Float(j - 6))
+//                  addIronCurtain(xaxis: Float(i + 1), yaxis: Float(j - 6))
                 }
             }
         }
