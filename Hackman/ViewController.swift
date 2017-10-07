@@ -17,7 +17,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var highScoreLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
     
-    var pacmanHitBox = SCNNode()
+    var pacMan = SCNNode()
+    var badGuy = SCNNode()
     
     var counter: Int = 0 {
         didSet {
@@ -60,6 +61,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         
     }
+    
     func startGame() {
         
         for i in -10..<10 {
@@ -68,16 +70,23 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 if i % 2 == 0 && j % 2 == 0 {
                     
                     addBox(xaxis: Float(i), yaxis: Float(j))
-                    //                    addIronCurtain(xaxis: Float(i + 1), yaxis: Float(j - 6))
+                    // addIronCurtain(xaxis: Float(i + 1), yaxis: Float(j - 6))
                 }
             }
         }
         
-        pacmanHitBox.geometry = SCNSphere(radius:0.25)
-        pacmanHitBox.geometry?.firstMaterial?.specular.contents = UIColor.orange
-        pacmanHitBox.geometry?.firstMaterial?.diffuse.contents = UIColor.orange
-        pacmanHitBox.position = SCNVector3(-1, -1, -1)
-        self.sceneView.scene.rootNode.addChildNode(pacmanHitBox)
+        pacMan.geometry = SCNSphere(radius:0.25)
+        pacMan.geometry?.firstMaterial?.specular.contents = UIColor.orange
+        pacMan.geometry?.firstMaterial?.diffuse.contents = UIColor.orange
+        pacMan.position = SCNVector3(-1, -1, -1)
+        self.sceneView.scene.rootNode.addChildNode(pacMan)
+        
+        badGuy.geometry = SCNBox(width: 0.5, height: 1.5, length: 0.5, chamferRadius: 0.0)
+        badGuy.geometry?.firstMaterial?.specular.contents = UIColor.purple
+        badGuy.geometry?.firstMaterial?.diffuse.contents = UIColor.purple
+        badGuy.position = SCNVector3(randomNumbers(firstNum: -10, secondNum: 10), -1, randomNumbers(firstNum: -10, secondNum: 10))
+        badGuy.name = "Khrushchev"
+        self.sceneView.scene.rootNode.addChildNode(badGuy)
         
         sceneView.debugOptions = [.showCameras, ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
         
@@ -98,7 +107,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         node.geometry?.firstMaterial?.specular.contents = UIColor.orange
         node.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
         node.name = "box"
-        
         
         node.position = SCNVector3(xaxis,-1,yaxis)
         self.sceneView.scene.rootNode.addChildNode(node)
@@ -126,19 +134,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func updateUserPosition(xAxis: Float, yAxis: Float, zAxis: Float){
         
         let moveToTarget = SCNAction.move(to: SCNVector3(xAxis, yAxis - 1, zAxis), duration: 0.01)
-        pacmanHitBox.runAction(moveToTarget)
+        pacMan.runAction(moveToTarget)
     }
     
     func checkCollisions() {
         let nodes = sceneView.scene.rootNode.childNodes
         
-        
         if let camera = sceneView.pointOfView {
+            
+            if(isCollision(firstNode: camera, secondNode: badGuy)) {
+                DispatchQueue.main.async {
+                    self.startButton.isHidden = false
+                }
+            }
+            
             for node in nodes {
                 if (node != camera) {
                     if (isCollision(firstNode: node, secondNode: camera) && node.name == "box") {
                         node.removeFromParentNode()
-                        
                         counter += 1
                     }
                 }
@@ -163,7 +176,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let highScore = self.getHighScore()
         
         if highScore > 0 {
-            
             self.highScoreLabel.isHidden = false
             self.highScoreLabel.text = "High Score: \(highScore)"
         } else {
