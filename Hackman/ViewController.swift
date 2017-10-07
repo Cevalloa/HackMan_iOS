@@ -35,15 +35,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         
-        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
-        
         for i in -10..<10 {
             for j in -10..<10{
                 addBox(xaxis: Float(i), yaxis: Float(j))
             }
-            
         }
-        sceneView.debugOptions = [.showBoundingBoxes, .showCameras]
+        
+        pacmanHitBox.geometry = SCNSphere(radius:0.25)
+        pacmanHitBox.geometry?.firstMaterial?.specular.contents = UIColor.orange
+        pacmanHitBox.geometry?.firstMaterial?.diffuse.contents = UIColor.orange
+        pacmanHitBox.position = SCNVector3(-1, -1, -1)
+        self.sceneView.scene.rootNode.addChildNode(pacmanHitBox)
+        
+        sceneView.debugOptions = [.showBoundingBoxes, .showCameras, ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
     }
     func resetSession(){
         self.sceneView.session.pause()
@@ -64,24 +68,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.sceneView.scene.rootNode.addChildNode(node)
     }
     
-    func updateUserPosition(xAxis: Float, yAxis: Float){
-        pacmanHitBox.geometry = SCNSphere(radius:0.1)
-        pacmanHitBox.geometry?.firstMaterial?.specular.contents = UIColor.orange
-        pacmanHitBox.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        if let camera = sceneView.pointOfView {
+            updateUserPosition(xAxis: camera.position.x, yAxis: camera.position.y, zAxis: camera.position.z)
+        }
+    }
+    
+    func updateUserPosition(xAxis: Float, yAxis: Float, zAxis: Float){
         
-        pacmanHitBox.position = SCNVector3(xAxis,0,yAxis)
+        let moveToTarget = SCNAction.move(to: SCNVector3(xAxis, yAxis - 1, zAxis), duration: 0.01)
+        pacmanHitBox.runAction(moveToTarget)
     }
     
     func randomNumbers(firstNum: CGFloat, secondNum: CGFloat)-> CGFloat{
         return CGFloat(arc4random())/CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
     }
-    
-    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        if let cameraPosition = sceneView.pointOfView {
-            updateUserPosition(xAxis: cameraPosition.position.x - 1, yAxis: cameraPosition.position.y - 1)
-        }
-    }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
