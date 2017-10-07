@@ -17,6 +17,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var highScoreLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
     
+    @IBOutlet weak var gameOverImage: UIImageView!
     var pacMan = SCNNode()
     var badGuy = SCNNode()
     var badGuyMovementTimer = Timer()
@@ -57,13 +58,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         
+        self.gameOverImage.isHidden = true
         updateHighScoreLabel()
         self.counterLabel.isHidden = true
-        
-        
     }
     
     func startGame() {
+        
+        counter = 0
         
         for i in -10..<10 {
             for j in -10..<10{
@@ -141,19 +143,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func updateKruschevPosition() {
         badGuy.removeAllActions()
         if let camera = sceneView.pointOfView {
-            let moveToTarget = SCNAction.move(to: SCNVector3(camera.position.x, camera.position.y, camera.position.z), duration: 10)
+            let moveToTarget = SCNAction.move(to: SCNVector3(camera.position.x, camera.position.y, camera.position.z), duration: 7)
             badGuy.runAction(moveToTarget)
         }
     }
     
     func checkCollisions() {
+        
+        if startButton.isHidden == false { return }
+        
         let nodes = sceneView.scene.rootNode.childNodes
         
         if let camera = sceneView.pointOfView {
             
             if(isCollision(firstNode: camera, secondNode: badGuy)) {
                 DispatchQueue.main.async {
-                    self.startButton.isHidden = false
+                    
+                    // Game over screen
+                    self.runGameOverScreen()
                 }
             }
             
@@ -178,6 +185,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             }
         }
         return false
+    }
+    
+    func runGameOverScreen() {
+        self.gameOverImage.isHidden = false
+        self.startButton.isHidden = false
     }
     
     func updateHighScoreLabel() {
@@ -262,11 +274,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func startButtonPressed(_ sender: Any) {
         startGame()
         self.startButton.isHidden = true
+        self.gameOverImage.isHidden = true
         self.counterLabel.isHidden = false
         
-//        badGuyMovementTimer = Timer(fire: Date(), interval: 2, repeats: true, block: { (timer) in
-//            self.updateKruschevPosition()
-//        })
         badGuyMovementTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: { (timer) in
             self.updateKruschevPosition()
         })

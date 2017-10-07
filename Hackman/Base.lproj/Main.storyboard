@@ -44,6 +44,10 @@
                                     <action selector="startButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="dAd-4F-s2G"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="gameoverTransparent.png" translatesAutoresizingMaskIntoConstraints="NO" id="PPJ-aH-PsK">
+                                <rect key="frame" x="59" y="118" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -54,6 +58,7 @@
                     </view>
                     <connections>
                         <outlet property="counterLabel" destination="lyi-05-6tT" id="ahU-W3-QOa"/>
+                        <outlet property="gameOverImage" destination="PPJ-aH-PsK" id="9JU-55-EPB"/>
                         <outlet property="highScoreLabel" destination="dzc-rp-J7h" id="7oa-es-csH"/>
                         <outlet property="sceneView" destination="53E-m2-OMQ" id="sju-Ah-bXA"/>
                         <outlet property="startButton" destination="kGH-TH-Is7" id="fcl-DN-yB1"/>
@@ -65,6 +70,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="gameoverTransparent.png" width="298" height="165"/>
         <image name="startButton.png" width="450" height="170"/>
     </resources>
 </document>
