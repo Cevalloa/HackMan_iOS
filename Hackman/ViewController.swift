@@ -50,9 +50,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         for i in -20..<20 {
             for j in -20..<20{
                 
-                if i % 2 == 0 && j % 2 == 0 {
+                if i % 3 == 0 && j % 2 == 0 {
                     
                     addBox(xaxis: Float(i), yaxis: Float(j))
+//                    addIronCurtain(xaxis: Float(i + 1), yaxis: Float(j - 6))
                 }
             }
         }
@@ -80,6 +81,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         node.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
         node.name = "box"
         
+        
+        node.position = SCNVector3(xaxis,-1,yaxis)
+        self.sceneView.scene.rootNode.addChildNode(node)
+    }
+    
+    func addIronCurtain(xaxis:Float, yaxis:Float) {
+        
+        let node = SCNNode()
+        node.geometry = SCNBox(width:0.2, height: 7.0, length:2.0, chamferRadius:0.0)
+        node.geometry?.firstMaterial?.specular.contents = UIColor.orange
+        node.geometry?.firstMaterial?.diffuse.contents = UIColor.brown
+        node.name = "ironCurtain"
         
         node.position = SCNVector3(xaxis,-1,yaxis)
         self.sceneView.scene.rootNode.addChildNode(node)
