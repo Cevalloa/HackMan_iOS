@@ -56,11 +56,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
         
         updateHighScoreLabel()
+        self.counterLabel.isHidden = true
         
         
     }
     func startGame() {
-        
         
         for i in -10..<10 {
             for j in -10..<10{
@@ -241,6 +241,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func startButtonPressed(_ sender: Any) {
         startGame()
         self.startButton.isHidden = true
+        self.counterLabel.isHidden = false
     }
     
     // MARK: Helper Methods
