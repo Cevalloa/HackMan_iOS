@@ -64,9 +64,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Gives values between -1.5 and 1.5
         let xPosition = randomPosition(lowerBound: -1.5, upperBound: 1.5)
-        let yPosition = randomPosition(lowerBound: -1.5, upperBound: 1.5)
+        let zPosition = randomPosition(lowerBound: -1.5, upperBound: 1.5)
         
-        ball.position = SCNVector3(xPosition, yPosition, -5) // -1 is one meter away from the camera
+        ball.position = SCNVector3(xPosition, -3, zPosition) // -1 is one meter away from the camera
         sceneView.scene.rootNode.addChildNode(ball)
     }
 
