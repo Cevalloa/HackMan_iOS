@@ -71,6 +71,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         if let camera = sceneView.pointOfView {
             updateUserPosition(xAxis: camera.position.x, yAxis: camera.position.y, zAxis: camera.position.z)
+            checkCollisions()
         }
     }
     
@@ -78,6 +79,30 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         let moveToTarget = SCNAction.move(to: SCNVector3(xAxis, yAxis - 1, zAxis), duration: 0.01)
         pacmanHitBox.runAction(moveToTarget)
+    }
+    
+    func checkCollisions() {
+        let nodes = sceneView.scene.rootNode.childNodes
+        
+        if let camera = sceneView.pointOfView {
+            for node in nodes {
+                if (node != camera) {
+                    if (isCollision(firstNode: node, secondNode: camera)) {
+                        node.geometry?.firstMaterial?.specular.contents = UIColor.orange
+                        node.geometry?.firstMaterial?.diffuse.contents = UIColor.green
+                    }
+                }
+            }
+        }
+    }
+    
+    func isCollision(firstNode: SCNNode, secondNode: SCNNode) -> Bool {
+        if firstNode.position.x - secondNode.position.x > -1 && firstNode.position.x - secondNode.position.x < 1 {
+            if firstNode.position.z - secondNode.position.z > -1 && firstNode.position.z - secondNode.position.z < 1 {
+                return true
+            }
+        }
+        return false
     }
     
     func randomNumbers(firstNum: CGFloat, secondNum: CGFloat)-> CGFloat{
