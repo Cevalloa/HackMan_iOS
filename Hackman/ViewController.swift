@@ -14,6 +14,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var counterLabel: UILabel!
+    @IBOutlet weak var highScoreLabel: UILabel!
     
     var pacmanHitBox = SCNNode()
     
@@ -22,7 +23,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             
             DispatchQueue.main.async {
                 
-                self.counterLabel.text = "\(self.counter)"
+                self.counterLabel.text = "Score:\(self.counter)"
+                
+                
+                if self.counter > self.getHighScore() {
+                    self.saveHighScore(value: self.counter)
+                    self.updateHighScoreLabel()
+                }
             }
         }
     }
@@ -46,6 +53,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
+        
+        updateHighScoreLabel()
         
         for i in -20..<20 {
             for j in -20..<20{
@@ -142,6 +151,20 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         return false
     }
     
+    func updateHighScoreLabel() {
+        
+        let highScore = self.getHighScore()
+        
+        if highScore > 0 {
+            
+            self.highScoreLabel.isHidden = false
+            self.highScoreLabel.text = "High Score: \(highScore)"
+        } else {
+            
+            self.highScoreLabel.isHidden = true
+        }
+    }
+    
     func randomNumbers(firstNum: CGFloat, secondNum: CGFloat)-> CGFloat{
         return CGFloat(arc4random())/CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
     }
@@ -172,6 +195,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Pause the view's session
         sceneView.session.pause()
+    }
+    
+    func saveHighScore(value: Int) {
+        
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: "highScore")
+        defaults.synchronize()
+    }
+    
+    func getHighScore() -> Int {
+        
+        let defaults = UserDefaults.standard
+        if let value = defaults.value(forKey: "highScore") as? Int {
+            
+            return value
+        }
+        
+        return 0
     }
     
     override func didReceiveMemoryWarning() {
