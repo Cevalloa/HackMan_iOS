@@ -23,7 +23,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             MusicHelper.shared.playEatingNoise()
             DispatchQueue.main.async {
                 
-                self.counterLabel.text = "Score:\(self.counter)"
+                self.counterLabel.text = "Score: \(self.counter)"
                 
                 
                 if self.counter > self.getHighScore() {
@@ -56,10 +56,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         updateHighScoreLabel()
         
-        for i in -20..<20 {
-            for j in -20..<20{
+        for i in -10..<10 {
+            for j in -10..<10{
                 
-                if i % 3 == 0 && j % 2 == 0 {
+                if i % 2 == 0 && j % 2 == 0 {
                     
                     addBox(xaxis: Float(i), yaxis: Float(j))
 //                    addIronCurtain(xaxis: Float(i + 1), yaxis: Float(j - 6))
