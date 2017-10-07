@@ -29,6 +29,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let scene = SCNScene()
         // Set the scene to the view
         sceneView.scene = scene
+        sceneView.debugOptions = [.showBoundingBoxes, .showCameras]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,9 +41,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Run the view's session
         sceneView.session.run(configuration)
         
-        addObject()
-        addObject()
-        addObject()
+        for _ in 0..<5 {
+            addObject()
+            addObject()
+            addObject()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -64,9 +67,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Gives values between -1.5 and 1.5
         let xPosition = randomPosition(lowerBound: -1.5, upperBound: 1.5)
-        let zPosition = randomPosition(lowerBound: -1.5, upperBound: 1.5)
+        let yPosition = randomPosition(lowerBound: -1.5, upperBound: 1.5)
         
-        ball.position = SCNVector3(xPosition, -3, zPosition) // -1 is one meter away from the camera
+        ball.position = SCNVector3(xPosition, yPosition, -3) // -1 is one meter away from the camera
         sceneView.scene.rootNode.addChildNode(ball)
     }
 
