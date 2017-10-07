@@ -59,7 +59,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         pacmanHitBox.position = SCNVector3(-1, -1, -1)
         self.sceneView.scene.rootNode.addChildNode(pacmanHitBox)
         
-        sceneView.debugOptions = [.showBoundingBoxes, .showCameras, ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        sceneView.debugOptions = [.showCameras, ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
     }
     func resetSession(){
         self.sceneView.session.pause()
@@ -71,9 +71,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     func addBox(xaxis:Float, yaxis:Float){
         let node = SCNNode()
-        node.geometry = SCNBox(width:0.1, height: 0.1, length:0.1, chamferRadius:0)
+        node.geometry = SCNBox(width:0.2, height: 0.2, length:0.2, chamferRadius:0.1)
         node.geometry?.firstMaterial?.specular.contents = UIColor.orange
-        node.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+        node.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
         node.name = "box"
         
         
@@ -112,8 +112,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func isCollision(firstNode: SCNNode, secondNode: SCNNode) -> Bool {
-        if firstNode.position.x - secondNode.position.x > -1 && firstNode.position.x - secondNode.position.x < 1 {
-            if firstNode.position.z - secondNode.position.z > -1 && firstNode.position.z - secondNode.position.z < 1 {
+        
+        let position: Float = 0.5
+        
+        if firstNode.position.x - secondNode.position.x > -position && firstNode.position.x - secondNode.position.x < position {
+            if firstNode.position.z - secondNode.position.z > -position && firstNode.position.z - secondNode.position.z < position {
                 return true
             }
         }
