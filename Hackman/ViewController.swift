@@ -13,6 +13,8 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
+    var pacmanHitBox = SCNNode()
+    
     // Create a session configuration
     let configuration = ARWorldTrackingConfiguration()
     
@@ -62,19 +64,22 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.sceneView.scene.rootNode.addChildNode(node)
     }
     
-    func addSphere(){
-        let node = SCNNode()
-        node.geometry = SCNSphere(radius:0.1)
-        node.geometry?.firstMaterial?.specular.contents = UIColor.orange
-        node.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+    func updateUserPosition(xAxis: Float, yAxis: Float){
+        pacmanHitBox.geometry = SCNSphere(radius:0.1)
+        pacmanHitBox.geometry?.firstMaterial?.specular.contents = UIColor.orange
+        pacmanHitBox.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
         
-        
-        node.position = SCNVector3(0,0,-1)
-        self.sceneView.scene.rootNode.addChildNode(node)
+        pacmanHitBox.position = SCNVector3(xAxis,0,yAxis)
     }
     
     func randomNumbers(firstNum: CGFloat, secondNum: CGFloat)-> CGFloat{
         return CGFloat(arc4random())/CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        if let cameraPosition = sceneView.pointOfView {
+            updateUserPosition(xAxis: cameraPosition.position.x - 1, yAxis: cameraPosition.position.y - 1)
+        }
     }
     
     
@@ -90,9 +95,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             
             sceneView.scene.rootNode.addChildNode(cameraPosition)
         }
-        
-        
-        
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
