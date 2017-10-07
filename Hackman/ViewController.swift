@@ -24,8 +24,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
         
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+//        let scene = SCNScene(named: "art.scnassets/Ball.scn")!
         
+        let scene = SCNScene()
         // Set the scene to the view
         sceneView.scene = scene
     }
@@ -38,6 +39,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
         // Run the view's session
         sceneView.session.run(configuration)
+        
+        addObject()
+        addObject()
+        addObject()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -51,6 +56,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
+    
+    func addObject() {
+        
+        let ball = Ball()
+        ball.loadModal()
+        
+        // Gives values between -1.5 and 1.5
+        let xPosition = randomPosition(lowerBound: -1.5, upperBound: 1.5)
+        let yPosition = randomPosition(lowerBound: -1.5, upperBound: 1.5)
+        
+        ball.position = SCNVector3(xPosition, yPosition, -5) // -1 is one meter away from the camera
+        sceneView.scene.rootNode.addChildNode(ball)
+    }
 
     // MARK: - ARSCNViewDelegate
     
@@ -62,6 +80,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         return node
     }
 */
+    
+    // MARK: Helper Methods
+    func randomPosition(lowerBound lower:Float, upperBound upper:Float) -> Float {
+        
+        return Float(arc4random()) / Float(UInt32.max) * (lower - upper) + upper
+    }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
