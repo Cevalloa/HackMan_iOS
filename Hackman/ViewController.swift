@@ -64,6 +64,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.sceneView.scene.rootNode.addChildNode(pacmanHitBox)
         
         sceneView.debugOptions = [.showCameras, ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        
+        MusicHelper.shared.playBackgroundMusic()
     }
     func resetSession(){
         self.sceneView.session.pause()
