@@ -35,13 +35,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
         
-        //        let node = SCNNode()
-        //        node.geometry = SCNBox(width:0.1, height: 0.1, length:0.1, chamferRadius:0)
-        //        //node.geometry?.firstMaterial?.specular.contents = UIColor.white
-        //        node.geometry?.firstMaterial?.diffuse.contents = UIColor.orange
-        //
-        //        node.position = SCNVector3(0,0,0.03)
-        //        self.sceneView.scene.rootNode.addChildNode(node)
         for i in -10..<10 {
             for j in -10..<10{
                 addBox(xaxis: Float(i), yaxis: Float(j))
@@ -64,10 +57,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         node.geometry?.firstMaterial?.specular.contents = UIColor.orange
         node.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
         
-        //let x = randomNumbers(firstNum: -0.3, secondNum: 0.3)
-        //let y = randomNumbers(firstNum: -0.3, secondNum: 0.3)
-        //let z = randomNumbers(firstNum: -0.3, secondNum: 0.3)
-        //node.position = SCNVector3(x,y,z)
         
         node.position = SCNVector3(xaxis,-1,yaxis)
         self.sceneView.scene.rootNode.addChildNode(node)
@@ -79,10 +68,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         node.geometry?.firstMaterial?.specular.contents = UIColor.orange
         node.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
         
-        //let x = randomNumbers(firstNum: -0.3, secondNum: 0.3)
-        //let y = randomNumbers(firstNum: -0.3, secondNum: 0.3)
-        //let z = randomNumbers(firstNum: -0.3, secondNum: 0.3)
-        //node.position = SCNVector3(x,y,z)
         
         node.position = SCNVector3(0,0,-1)
         self.sceneView.scene.rootNode.addChildNode(node)
@@ -95,6 +80,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if let cameraPosition = sceneView.pointOfView{
+            cameraPosition.geometry = SCNSphere(radius:0.1)
+            
+            cameraPosition.geometry?.firstMaterial?.specular.contents = UIColor.orange
+            cameraPosition.geometry?.firstMaterial?.diffuse.contents = UIColor.brown
+            cameraPosition.position = SCNVector3(0, 0, -2)
+            
+            sceneView.scene.rootNode.addChildNode(cameraPosition)
+        }
+        
+        
+        
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
