@@ -13,7 +13,19 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
+    @IBOutlet weak var counterLabel: UILabel!
+    
     var pacmanHitBox = SCNNode()
+    
+    var counter: Int = 0 {
+        didSet {
+            
+            DispatchQueue.main.async {
+                
+                self.counterLabel.text = "\(self.counter)"
+            }
+        }
+    }
     
     // Create a session configuration
     let configuration = ARWorldTrackingConfiguration()
@@ -62,6 +74,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         node.geometry = SCNBox(width:0.1, height: 0.1, length:0.1, chamferRadius:0)
         node.geometry?.firstMaterial?.specular.contents = UIColor.orange
         node.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+        node.name = "box"
         
         
         node.position = SCNVector3(xaxis,-1,yaxis)
@@ -84,12 +97,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func checkCollisions() {
         let nodes = sceneView.scene.rootNode.childNodes
         
+        
         if let camera = sceneView.pointOfView {
             for node in nodes {
                 if (node != camera) {
-                    if (isCollision(firstNode: node, secondNode: camera)) {
-                        node.geometry?.firstMaterial?.specular.contents = UIColor.orange
-                        node.geometry?.firstMaterial?.diffuse.contents = UIColor.green
+                    if (isCollision(firstNode: node, secondNode: camera) && node.name == "box") {
+                        node.removeFromParentNode()
+                        
+                        counter += 1
                     }
                 }
             }
